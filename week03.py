@@ -1,6 +1,6 @@
-drinks = ["Ice Americano","Cafe Latte"]
+drinks = ["Ice Americano","Cafe Latte","watermelon Juice"]
 prices = [2000, 3000, 4900]
-amounts = [0 for _ in range(len(drinks))]
+amounts = [0] * len(drinks)
 
 total_price = 0
 
