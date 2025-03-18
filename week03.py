@@ -18,10 +18,9 @@ def order_process(idx: int):
     total_price = total_price + prices[idx]
     amounts[idx] = amounts[idx] + 1
 
-#메뉴 가변 문자열
-menu_lists =""
-for k in range (len(drinks)):
-    menu_lists = menu_lists + f" {k+1}) {drinks[k]} {prices[k]} won"
+
+#list comprehension , string join 연산
+menu_lists = " ".join([f" {k+1}) {drinks[k]} {prices[k]} won " for k in range(len(drinks))])
 menu_lists = menu_lists + f" {len(drinks)+1}: EXIT: "
 
 while True:
@@ -35,12 +34,6 @@ while True:
         break
     else:
         print(f"{menu} menu is not exist")
-
-#print(f"{drinks[0]} {prices[0]} {amounts[0]}"
-#      f" {prices[0]*amounts[0]}")
-#print(f"{drinks[1]} {prices[1]} {amounts[1]}"
-#     f" {prices[1]*amounts[1]}")
-
 
 print("Product  Price   Amount  Subtotal")
 for i in range (len(drinks)):
