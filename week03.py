@@ -1,12 +1,16 @@
-drinks = ["Ice Americano","Cafe Latte","Watermelon Juice"]
+drinks = ["Ice Americano","Cafe Latte"]
 prices = [2000, 3000, 4900]
-amounts = [0,0,0]
+amounts = [0 for _ in range(len(drinks))]
+
 total_price = 0
 
 #drinks = ["Ice Americano","Cafe Latte"]
 #prices = [2000, 3000]
 #amounts = [0,0]
 #total_price = 0
+
+
+
 
 def order_process(idx: int):
     global total_price
