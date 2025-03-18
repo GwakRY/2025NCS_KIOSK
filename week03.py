@@ -4,12 +4,17 @@ drinks = ["Ice Americano","Cafe Latte","Watermelon juice"]
 prices = [2000, 3000, 4900]
 amounts = [0,0,0]
 total_price = 0
-#order_list =''
+
+#메뉴 가변 문자열
+menu_lists =""
+for k in range (len(drinks)):
+    menu_lists = menu_lists + f" {k+1}) {drinks[k]} {prices[k]} won"
+menu_lists = menu_lists + f" {len(drinks)+1}: EXIT: "
+
 while True:
-    menu = input(f"1) {drinks[0]}{prices[0]}won "
-                 f" 2)Cafe Latte "
-                 f" 3)watermelon juice "
-                 f" 4) Exit: ")
+    #menu = input(f"1) {drinks[0]} {prices[0]}won "f" 2)Cafe Latte "f" 3)watermelon juice "f" 4) Exit: ")
+    menu = input(menu_lists)
+
     if menu == "1":
         print(f"{drinks[0]} ordered. Price: {prices[0]}won")
         total_price = total_price + prices[0]
@@ -20,7 +25,7 @@ while True:
         total_price = total_price + prices[1]
         # order_list = order_list + drinks[0]+'\n'
         amounts[1] = amounts[1] + 1
-    if menu == "3":
+    elif menu == "3":
         print(f"{drinks[2]} ordered. Price: {prices[2]}won")
         total_price = total_price + prices[2]
         #order_list = order_list + drinks[0]+'\n'
@@ -37,10 +42,10 @@ while True:
 #     f" {prices[1]*amounts[1]}")
 
 
-print("Product  Price   Amount")
+print("Product  Price   Amount  Subtotal")
 for i in range (len(drinks)):
-    print(f"{drinks[i]} {prices[i]} {amounts[i]}"
-          f" {prices[i] * amounts[i]}")
+    if amounts[i] > 0:
+        print(f"{drinks[i]} {prices[i]}X {amounts[i]}"
+              f" {prices[i] * amounts[i]}")
 
 print(f"total price : {total_price}")
-#print(order_list)
