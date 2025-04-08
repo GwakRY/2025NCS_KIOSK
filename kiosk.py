@@ -121,8 +121,11 @@ class OrderProcessor:
         Function that produce next ticket number
         :return: next ticket number
         """
-        with open("ticket_number.txt", "r") as fp:
-            number = int(fp.read())
+        try:
+            with open("ticket_number.txt", "r") as fp:
+                number = int(fp.read())
+        except FileNotFoundError:
+            number = 0
         number = number + 1
 
         with open("ticket_number.txt","w") as fp:
