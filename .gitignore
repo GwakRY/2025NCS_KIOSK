@@ -4,6 +4,7 @@
 
 # User-specific stuff
 *.idea
+*.txt
 temp.py
 mymodule.py
 .idea/**/workspace.xml
