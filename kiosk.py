@@ -1,4 +1,6 @@
 from typing import List  # type hint
+import sqlite3
+
 
 class Menu:
     """Represents the cafe menu."""
@@ -70,6 +72,17 @@ class OrderProcessor:
         self.amounts = [0] * menu.get_menu_length()
         self.total_price = 0
 
+        self.conn = sqlite3.connect('queue_number.db')
+        self.cur = self.conn.cursor()
+
+        self.cur.execute('''
+            create table if not exists ticket(
+            id integer primary key autoincrement,
+            number integer not null
+            )
+        ''')
+        self.conn.commit()
+
     def apply_discount(self, price: int) -> float:
         """
         Apply discount rate when the total amount exceeds a certain threshold
@@ -118,19 +131,20 @@ class OrderProcessor:
 
     def get_next_ticket_number(self)->int:
         """
-        Function that produce next ticket number
+        Function that produce next ticket number (Database version)
         :return: next ticket number
         """
-        try:
-            with open("ticket_number.txt", "r") as fp:
-                number = int(fp.read())
-        except FileNotFoundError:
-            number = 0
-        number = number + 1
+        self.cur.execute('select number from ticket order by number desc limit 1')
+        result = self.cur.fetchone()
 
-        with open("ticket_number.txt","w") as fp:
-            fp.write(str(number))
+        if result is None:
+            number = 1
+            self.cur.execute('insert into ticket(number) values (?)', (number,))
+        else:
+            number = result[0] + 1
+            self.cur.execute('insert into ticket(number) values (?)', (number,))
 
+        self.conn.commit()
         return number
 
     def run(self):
@@ -157,6 +171,6 @@ class OrderProcessor:
 
     #destructor
     def __del__(self):
-        #db connection close
         print("End Program")
+        self.conn.close() # db connection close
 
