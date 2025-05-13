@@ -36,33 +36,45 @@ Original file is located at
 #   fp.write(logo)
 #   print("saved!")
 
-import urllib.request
-import urllib.parse
+# import urllib.request
+# import urllib.parse
+#
+# api = 'https://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp'
+# id = input('Input local code : ')  # 108, 109, 105
+# values = {'stnId' : id}
+# parameters = urllib.parse.urlencode(values)
+# url = api + '?' + parameters
+# #print(url)
+# urls = urllib.request.urlopen(url).read()
+# texts = urls.decode('utf-8')
+# #print(texts)
 
-api = 'https://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp'
-id = input('Input local code : ')  # 108, 109, 105
-values = {'stnId' : id}
-parameters = urllib.parse.urlencode(values)
-url = api + '?' + parameters
-#print(url)
-urls = urllib.request.urlopen(url).read()
-texts = urls.decode('utf-8')
-#print(texts)
+
+
+# html = """
+# <html>
+# <head>
+# <title>스크레이핑 실습</title>
+# </head>
+# <body>
+# <h1>인하대학교</h1>
+# <p>웹스크레이핑</p>
+# <p>넘파이, 판다스, NLP ... </p>
+# </body>
+# </html>
+# """
+
 
 from bs4 import BeautifulSoup
+import urllib.request
+import urllib.parse
+import pandas as pd
 
-html = """
-<html>
-<head>
-<title>스크레이핑 실습</title>
-</head>
-<body>
-<h1>인하대학교</h1>
-<p>웹스크레이핑</p>
-<p>넘파이, 판다스, NLP ... </p>
-</body>
-</html>
-"""
+
+for i in range(1,49):
+    url = "https://www.hollys.co.kr/store/korea/korStore2.do?pageNo={i}&sido=&gugun=&store="
+    print(url)
+
 
 soup = BeautifulSoup(html, 'html.parser')
 t = soup.html.head.title
